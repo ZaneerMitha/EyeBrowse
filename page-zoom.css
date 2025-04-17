@@ -1,0 +1,35 @@
+/* page-zoom.css */
+/* This CSS file uses the :root variable to control the zoom level across the page */
+
+:root {
+    --zoom-factor: 1.0;
+  }
+  
+  /* Apply scaling to the entire document */
+  html {
+    /* Use transform to scale the entire page content */
+    transform: scale(var(--zoom-factor));
+    /* Adjust transform origin to top left to prevent overflow issues */
+    transform-origin: 0 0;
+  }
+  
+  /* Adjust container size to account for scaling */
+  body {
+    /* Scale the body width inversely to maintain proper layout */
+    width: calc(100% / var(--zoom-factor));
+    /* Ensure text rendering remains smooth when scaled */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Prevent fixed position elements from becoming misaligned */
+  body *[style*="position: fixed"], 
+  body *[style*="position:fixed"],
+  .fixed, 
+  [class*="sticky"],
+  [style*="position: sticky"],
+  [style*="position:sticky"] {
+    /* Adjust fixed elements to maintain position relative to viewport */
+    transform: scale(calc(1 / var(--zoom-factor)));
+    transform-origin: left top;
+  }

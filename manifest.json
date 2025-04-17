@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "EyeBrowse",
+  "description": "Allows user to change visual settings of webpages based on their own accessibility preferences.",
+  "version": "1.0",
+  "icons": {
+    "16": "images/EyeBrowseLogo16.png",
+    "32": "images/EyeBrowseLogo32.png",
+    "48": "images/EyeBrowseLogo48.png",
+    "128": "images/EyeBrowseLogo128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/EyeBrowseLogo16.png",
+      "32": "images/EyeBrowseLogo32.png",
+      "48": "images/EyeBrowseLogo48.png",
+      "128": "images/EyeBrowseLogo128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["page-zoom.js"],
+      "css": ["page-zoom.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": ["activeTab", "scripting", "storage", "tabs"],
+  "host_permissions": ["<all_urls>"]
+}
