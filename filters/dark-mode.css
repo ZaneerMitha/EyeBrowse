@@ -1,0 +1,9 @@
+/* Simple dark mode filter */
+html {
+    filter: invert(90%) hue-rotate(180deg) brightness(0.8) !important;
+  }
+  
+  /* Don't invert images and videos */
+  img, picture, video, canvas, svg {
+    filter: invert(100%) hue-rotate(180deg) !important;
+  }

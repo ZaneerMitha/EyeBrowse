@@ -1,0 +1,48 @@
+/* 
+ * Improved protanopia (red-blind) filter
+ * Uses proper filters for images and content
+ */
+
+/* Basic page content filter */
+html {
+  filter: brightness(1.05) saturate(1.2) !important;
+}
+
+/* Special image filter that properly simulates protanopia */
+img, video, canvas, svg, [style*="background-image"] {
+  /* This filter matrix was designed to simulate protanopia accurately */
+  filter: url('data:image/svg+xml,\
+    <svg xmlns="http://www.w3.org/2000/svg">\
+      <filter id="protanopia">\
+        <feColorMatrix type="matrix" values="\
+          0.567, 0.433, 0,     0, 0 \
+          0.558, 0.442, 0,     0, 0 \
+          0,     0.242, 0.758, 0, 0 \
+          0,     0,     0,     1, 0"/>\
+      </filter>\
+    </svg>#protanopia') !important;
+}
+
+/* Fallback filter for browsers that don't support SVG filters */
+@supports not (filter: url('#protanopia')) {
+  img, video, canvas, svg, [style*="background-image"] {
+    filter: grayscale(50%) sepia(50%) hue-rotate(-15deg) saturate(150%) !important;
+  }
+}
+
+/* Add visual indicators for important red elements */
+[style*="color: red"], [style*="color:#f00"], [style*="color:#ff0000"],
+[style*="color: #f00"], [style*="color: #ff0000"] {
+  border-bottom: 1px dotted #000 !important;
+  font-weight: bold !important;
+}
+
+/* Add an icon to important red elements */
+.error, .alert-danger, [class*="error"], [class*="danger"] {
+  position: relative !important;
+}
+
+.error::before, .alert-danger::before, [class*="error"]::before, [class*="danger"]::before {
+  content: "⚠️" !important;
+  margin-right: 5px !important;
+}

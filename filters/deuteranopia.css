@@ -1,0 +1,51 @@
+/* 
+ * Improved deuteranopia (green-blind) filter
+ * Uses proper filters for images and content
+ */
+
+/* Basic page content filter */
+html {
+  filter: brightness(1.05) saturate(1.1) !important;
+}
+
+/* Special image filter that properly simulates deuteranopia */
+img, video, canvas, svg, [style*="background-image"] {
+  /* This filter matrix was designed to simulate deuteranopia accurately */
+  filter: url('data:image/svg+xml,\
+    <svg xmlns="http://www.w3.org/2000/svg">\
+      <filter id="deuteranopia">\
+        <feColorMatrix type="matrix" values="\
+          0.625, 0.375, 0,     0, 0 \
+          0.7,   0.3,   0,     0, 0 \
+          0,     0.3,   0.7,   0, 0 \
+          0,     0,     0,     1, 0"/>\
+      </filter>\
+    </svg>#deuteranopia') !important;
+}
+
+/* Fallback filter for browsers that don't support SVG filters */
+@supports not (filter: url('#deuteranopia')) {
+  img, video, canvas, svg, [style*="background-image"] {
+    filter: grayscale(30%) sepia(20%) hue-rotate(20deg) saturate(170%) !important;
+  }
+}
+
+/* Add visual indicators for important green elements */
+[style*="color: green"], [style*="color:#0f0"], [style*="color:#00ff00"],
+[style*="color: #0f0"], [style*="color: #00ff00"] {
+  border-bottom: 1px dotted #000 !important;
+  font-weight: bold !important;
+}
+
+/* Add patterns to differentiable green elements like success indicators */
+.success, .alert-success, [class*="success"] {
+  position: relative !important;
+  background-image: linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent) !important;
+  background-size: 20px 20px !important;
+}
+
+.success::before, .alert-success::before, [class*="success"]::before {
+  content: "✓" !important;
+  margin-right: 5px !important;
+}
+  

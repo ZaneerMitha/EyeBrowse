@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "EyeBrowse",
-  "description": "Allows user to change visual settings of webpages based on their own accessibility preferences.",
+  "description": "Customize website appearance for users with visual impairments",
   "version": "1.0",
   "icons": {
     "16": "images/EyeBrowseLogo16.png",
@@ -29,6 +29,20 @@
       "run_at": "document_idle"
     }
   ],
-  "permissions": ["activeTab", "scripting", "storage", "tabs"],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "fonts/*.css",
+        "*.css"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "permissions": [
+    "activeTab", 
+    "scripting", 
+    "storage", 
+    "tabs"
+  ],
   "host_permissions": ["<all_urls>"]
 }

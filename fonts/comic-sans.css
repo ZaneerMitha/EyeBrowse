@@ -1,0 +1,26 @@
+/* Comic Sans MS font style for improved readability */
+
+/* Apply Comic Sans to all text elements */
+body * {
+    font-family: 'Comic Sans MS', cursive, sans-serif !important;
+    letter-spacing: 0.1em !important;
+    word-spacing: 0.2em !important;
+    line-height: 1.3 !important;
+  }
+  
+  /* Improve readability with specific styles */
+  p, li, blockquote {
+    margin-bottom: 1em !important;
+  }
+  
+  /* Enhance focus for important elements */
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 1em !important;
+    margin-bottom: 0.5em !important;
+    font-weight: bold !important;
+  }
+  
+  /* Improve link visibility */
+  a:link, a:visited {
+    text-decoration: underline !important;
+  }

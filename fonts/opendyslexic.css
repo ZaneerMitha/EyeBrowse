@@ -1,0 +1,35 @@
+/* OpenDyslexic font style */
+
+/* Import the font from CDN */
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/woff/OpenDyslexic-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/woff/OpenDyslexic-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Apply OpenDyslexic to all text elements */
+body * {
+  font-family: 'OpenDyslexic', Arial, sans-serif !important;
+  letter-spacing: 0.15em !important;
+  word-spacing: 0.25em !important;
+  line-height: 1.4 !important;
+}
+
+/* Improve readability with specific styles */
+p, li, blockquote {
+  margin-bottom: 1.2em !important;
+}
+
+/* Add a subtle left border to paragraphs to aid line tracking */
+p {
+  border-left: 3px solid rgba(200, 200, 200, 0.3) !important;
+  padding-left: 10px !important;
+}

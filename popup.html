@@ -7,7 +7,13 @@
       body {
         font-family: Arial, sans-serif;
         margin: 10px;
-        min-width: 250px;
+        min-width: 300px;
+        max-width: 350px;
+      }
+      h1 {
+        font-size: 16px;
+        margin-bottom: 15px;
+        color: #333;
       }
       label {
         display: block;
@@ -15,12 +21,12 @@
         font-weight: bold;
       }
       .slider-container {
-        margin-top: 15px;
+        margin-top: 10px;
         margin-bottom: 15px;
       }
       .slider-value {
         display: inline-block;
-        width: 30px;
+        width: 40px;
         text-align: right;
         margin-left: 10px;
       }
@@ -33,24 +39,228 @@
         border-bottom: 1px solid #ccc;
         margin-bottom: 10px;
       }
+      .option-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 20px;
+        margin-right: 10px;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 20px;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+      }
+      input:checked + .slider {
+        background-color: #2196F3;
+      }
+      input:checked + .slider:before {
+        transform: translateX(20px);
+      }
+      #resetAll {
+        display: block;
+        width: 100%;
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        padding: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 15px;
+      }
+      #resetAll:hover {
+        background-color: #e8e8e8;
+      }
+      .tabs {
+        display: flex;
+        margin-bottom: 10px;
+      }
+      .tab {
+        padding: 8px 12px;
+        cursor: pointer;
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        border-bottom: none;
+        border-radius: 4px 4px 0 0;
+        margin-right: 5px;
+      }
+      .tab.active {
+        background-color: #fff;
+        border-bottom: 1px solid #fff;
+        margin-bottom: -1px;
+        font-weight: bold;
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      .range-slider-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.7em;
+        color: #666;
+        margin-top: -5px;
+        margin-bottom: 10px;
+      }
     </style>
   </head>
   <body>
-    <div class="section">
-      <label for="filterToggle">Select Filter:</label>
-      <select id="filterToggle">
-        <option value="OFF">Off</option>
-        <option value="GRAYSCALE">Grayscale</option>
-        <option value="PROTANOPIA">Protanopia</option>
-        <option value="DEUTERANOPIA">Deuteranopia</option>
-        <option value="TRITANOPIA">Tritanopia</option>
-      </select>
+    <h1>EyeBrowse Settings</h1>
+    
+    <div class="tabs">
+      <div class="tab active" data-tab="vision">Vision</div>
+      <div class="tab" data-tab="text">Text</div>
     </div>
+    
+    <div class="tab-content active" id="vision-tab">
+      <div class="section">
+        <label for="filterToggle">Select Vision Mode:</label>
+        <select id="filterToggle">
+          <option value="OFF">Normal Vision</option>
+          <option value="PROTANOPIA">Protanopia (Red-Blind)</option>
+          <option value="DEUTERANOPIA">Deuteranopia (Green-Blind)</option>
+          <option value="TRITANOPIA">Tritanopia (Blue-Blind)</option>
+          <option value="GRAYSCALE">Grayscale</option>
+          <option value="DARK">Dark Mode</option>
+        </select>
+      </div>
 
-    <div class="section slider-container">
-      <label for="zoomSlider">Page Zoom: <span id="zoomValue" class="slider-value">100</span>%</label>
-      <input type="range" id="zoomSlider" min="75" max="200" value="100" step="5">
+      <div class="section">
+        <div class="option-row">
+          <label class="switch">
+            <input type="checkbox" id="fontToggle">
+            <span class="slider"></span>
+          </label>
+          <label for="fontToggle">Enable Dyslexia-Friendly Font</label>
+        </div>
+        
+        <div id="fontOptions" style="display: none;">
+          <select id="fontSelector">
+            <option value="opendyslexic">OpenDyslexic</option>
+            <option value="arial">Arial</option>
+            <option value="comic-sans">Comic Sans MS</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section slider-container">
+        <label for="zoomSlider">Page Zoom: <span id="zoomValue" class="slider-value">100</span>%</label>
+        <input type="range" id="zoomSlider" min="75" max="200" value="100" step="5">
+      </div>
     </div>
+    
+    <div class="tab-content" id="text-tab">
+      <div class="section slider-container">
+        <label for="textSizeSlider">Text Size: <span id="textSizeValue" class="slider-value">100</span>%</label>
+        <input type="range" id="textSizeSlider" min="100" max="200" value="100" step="5">
+        <div class="range-slider-labels">
+          <span>Default</span>
+          <span>Larger</span>
+        </div>
+      </div>
+      
+      <div class="section slider-container">
+        <label for="lineSpacingSlider">Line Spacing: <span id="lineSpacingValue" class="slider-value">1.0</span>×</label>
+        <input type="range" id="lineSpacingSlider" min="10" max="30" value="10" step="2">
+        <div class="range-slider-labels">
+          <span>Normal</span>
+          <span>Spacious</span>
+        </div>
+      </div>
+      
+      <div class="section slider-container">
+        <label for="letterSpacingSlider">Letter Spacing: <span id="letterSpacingValue" class="slider-value">0</span>px</label>
+        <input type="range" id="letterSpacingSlider" min="0" max="10" value="0" step="1">
+        <div class="range-slider-labels">
+          <span>None</span>
+          <span>Wide</span>
+        </div>
+      </div>
+      
+      <div class="section slider-container">
+        <label for="wordSpacingSlider">Word Spacing: <span id="wordSpacingValue" class="slider-value">0</span>px</label>
+        <input type="range" id="wordSpacingSlider" min="0" max="15" value="0" step="1">
+        <div class="range-slider-labels">
+          <span>Normal</span>
+          <span>Wide</span>
+        </div>
+      </div>
+      
+      <div class="section slider-container">
+        <label for="columnWidthSlider">Reading Width: <span id="columnWidthValue" class="slider-value">100</span>%</label>
+        <input type="range" id="columnWidthSlider" min="40" max="100" value="100" step="5">
+        <div class="range-slider-labels">
+          <span>Narrow</span>
+          <span>Full</span>
+        </div>
+      </div>
+      
+      <div class="section slider-container">
+        <label for="paragraphSpacingSlider">Paragraph Spacing: <span id="paragraphSpacingValue" class="slider-value">1.0</span>×</label>
+        <input type="range" id="paragraphSpacingSlider" min="10" max="30" value="10" step="2">
+        <div class="range-slider-labels">
+          <span>Default</span>
+          <span>Spacious</span>
+        </div>
+      </div>
+      
+      <div class="section">
+        <div class="option-row">
+          <label class="switch">
+            <input type="checkbox" id="textGuideToggle">
+            <span class="slider"></span>
+          </label>
+          <label for="textGuideToggle">Enable Text Tracking Guide</label>
+        </div>
+      </div>
+      
+      <div class="section">
+        <div class="option-row">
+          <label class="switch">
+            <input type="checkbox" id="highContrastToggle">
+            <span class="slider"></span>
+          </label>
+          <label for="highContrastToggle">High Contrast Text</label>
+        </div>
+        
+        <div id="contrastOptions" style="display: none;">
+          <select id="contrastSelector">
+            <option value="normal">Black on White</option>
+            <option value="inverted">White on Black</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <button id="resetAll">Reset All Settings</button>
 
     <script src="popup.js"></script>
   </body>

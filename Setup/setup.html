@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="setup.css">
+    <meta charset="utf-8">
+    <title>EyeBrowse Setup</title>
+  </head>
+  <body>
+    <h1>Welcome to EyeBrowse</h1>
+    <p style="text-align:center;">Let's set up your browsing experience for maximum comfort and accessibility.</p>
+    
+    <div class="wizard-container">
+      <!-- Step 1: Vision Type -->
+      <div class="step active" id="step1">
+        <h2>Step 1: Do you have any color vision deficiencies?</h2>
+        <div class="option-card" data-value="none">
+          <h3>No Color Vision Deficiencies</h3>
+          <p>I have normal color vision or a different type of visual impairment.</p>
+        </div>
+        <div class="option-card" data-value="protanopia">
+          <h3>Protanopia/Protanomaly</h3>
+          <p>Difficulty distinguishing between reds and greens, with reds appearing darker.</p>
+        </div>
+        <div class="option-card" data-value="deuteranopia">
+          <h3>Deuteranopia/Deuteranomaly</h3>
+          <p>Difficulty distinguishing between reds and greens, most common type.</p>
+        </div>
+        <div class="option-card" data-value="tritanopia">
+          <h3>Tritanopia/Tritanomaly</h3>
+          <p>Difficulty distinguishing between blues and yellows.</p>
+        </div>
+        <div class="option-card" data-value="achromatopsia">
+          <h3>Achromatopsia/Monochromacy</h3>
+          <p>Complete or near-complete inability to distinguish colors.</p>
+        </div>
+        <div class="btn-container">
+          <div></div> <!-- Empty div for spacing -->
+          <button class="btn-next">Next</button>
+        </div>
+      </div>
+      
+      <!-- Step 2: Reading Difficulties -->
+      <div class="step" id="step2">
+        <h2>Step 2: Reading Difficulties</h2>
+        <p>Do you experience any of the following? (Select all that apply)</p>
+        
+        <div class="checkbox-label">
+          <input type="checkbox" id="dyslexia" name="reading" value="dyslexia">
+          <label for="dyslexia">Dyslexia or similar reading difficulties</label>
+        </div>
+        <div class="checkbox-label">
+          <input type="checkbox" id="tracking" name="reading" value="tracking">
+          <label for="tracking">Difficulty tracking lines of text</label>
+        </div>
+        <div class="checkbox-label">
+          <input type="checkbox" id="focus" name="reading" value="focus">
+          <label for="focus">Easily distracted by page elements</label>
+        </div>
+        <div class="checkbox-label">
+          <input type="checkbox" id="small-text" name="reading" value="small-text">
+          <label for="small-text">Difficulty reading small text</label>
+        </div>
+        
+        <h3>Font Preferences</h3>
+        <select id="font-preference">
+          <option value="default">Default (No change)</option>
+          <option value="opendyslexic">OpenDyslexic (Helpful for dyslexia)</option>
+          <option value="arial">Arial</option>
+          <option value="verdana">Verdana</option>
+          <option value="tahoma">Tahoma</option>
+          <option value="comic-sans">Comic Sans MS</option>
+        </select>
+        
+        <div class="font-preview" id="font-preview">
+          This is a preview of how text will appear with your selected font.
+        </div>
+        
+        <div class="btn-container">
+          <button class="btn-back">Back</button>
+          <button class="btn-next">Next</button>
+        </div>
+      </div>
+      
+      <!-- Step 3: Visual Comfort -->
+      <div class="step" id="step3">
+        <h2>Step 3: Visual Comfort</h2>
+        
+        <h3>How sensitive are your eyes to screen brightness?</h3>
+        <div class="slider-container">
+          <input type="range" min="1" max="10" value="5" class="slider" id="brightness-sensitivity">
+          <div class="slider-labels">
+            <span>Not sensitive</span>
+            <span>Very sensitive</span>
+          </div>
+        </div>
+        
+        <h3>What size text do you prefer?</h3>
+        <div class="slider-container">
+          <input type="range" min="100" max="200" value="100" step="10" class="slider" id="text-size">
+          <div class="slider-labels">
+            <span>Standard (100%)</span>
+            <span>Very Large (200%)</span>
+          </div>
+        </div>
+        
+        <div class="checkbox-label">
+          <input type="checkbox" id="dark-mode" name="comfort" value="dark-mode">
+          <label for="dark-mode">Enable dark mode where possible</label>
+        </div>
+        
+        <div class="btn-container">
+          <button class="btn-back">Back</button>
+          <button class="btn-finish">Finish Setup</button>
+        </div>
+      </div>
+    </div>
+    
+    <script src="setup.js"></script>
+  </body>
+</html>

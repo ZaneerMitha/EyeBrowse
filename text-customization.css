@@ -1,0 +1,82 @@
+/* Text customization CSS for EyeBrowse - Fixed text size scaling */
+
+/* 
+ * Custom CSS variable approach for text scaling
+ */
+ :root {
+  --text-size-factor: 1;
+  --line-spacing-factor: 1;
+  --letter-spacing-value: 0px;
+  --word-spacing-value: 0px;
+  --column-width-percent: 100%;
+  --paragraph-spacing-factor: 1;
+}
+
+/* Text size adjustment - simple incremental approach */
+html {
+  /* Using calc() with a proper formula that will actually work */
+  font-size: calc(100% + (var(--text-size-factor) - 1) * 20%) !important;
+}
+
+/* Line spacing applies to text containers */
+p, li, blockquote, div, span, td, th, h1, h2, h3, h4, h5, h6 {
+  line-height: calc(1.4 * var(--line-spacing-factor)) !important;
+}
+
+/* Letter spacing applies to all text elements */
+body * {
+  letter-spacing: var(--letter-spacing-value) !important;
+}
+
+/* Word spacing applies to all text elements */
+body * {
+  word-spacing: var(--word-spacing-value) !important;
+}
+
+/* Column width applies to content containers */
+article, section, main, .content, [role="main"], 
+p, li, blockquote, div.article, div.post, div.entry {
+  max-width: var(--column-width-percent) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Paragraph spacing applies to text blocks */
+p, li, blockquote, h1, h2, h3, h4, h5, h6 {
+  margin-bottom: calc(1em * var(--paragraph-spacing-factor)) !important;
+}
+
+/* Text tracking guide - adds left border to paragraphs */
+html.eyebrowse-text-guide p,
+html.eyebrowse-text-guide li {
+  border-left: 3px solid rgba(0, 0, 0, 0.2) !important;
+  padding-left: 10px !important;
+}
+
+/* High contrast text */
+html.eyebrowse-high-contrast-text * {
+  color: #000 !important;
+  background-color: #fff !important;
+}
+
+html.eyebrowse-high-contrast-text-inverted * {
+  color: #fff !important;
+  background-color: #000 !important;
+}
+
+/* Additional styling for text elements in high contrast mode */
+html.eyebrowse-high-contrast-text a,
+html.eyebrowse-high-contrast-text-inverted a {
+  text-decoration: underline !important;
+  font-weight: bold !important;
+}
+
+html.eyebrowse-high-contrast-text button, 
+html.eyebrowse-high-contrast-text input[type="button"],
+html.eyebrowse-high-contrast-text input[type="submit"],
+html.eyebrowse-high-contrast-text-inverted button,
+html.eyebrowse-high-contrast-text-inverted input[type="button"],
+html.eyebrowse-high-contrast-text-inverted input[type="submit"] {
+  border: 2px solid !important;
+  font-weight: bold !important;
+}
