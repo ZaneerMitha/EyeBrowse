@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="setup.css">
+    <meta charset="utf-8">
+    <title>EyeBrowse Setup Complete</title>
+    <style>
+      .success-container {
+        text-align: center;
+        padding: 30px;
+      }
+      .success-icon {
+        font-size: 72px;
+        color: #2ecc71;
+        margin-bottom: 20px;
+      }
+      .button-container {
+        margin-top: 30px;
+      }
+      .primary-button {
+        background-color: #3498db;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Setup Complete!</h1>
+    
+    <div class="wizard-container">
+      <div class="success-container">
+        <div class="success-icon">✓</div>
+        <h2>Your EyeBrowse settings have been configured</h2>
+        <p>Your browsing experience will now be optimized based on your preferences. You can always adjust these settings later by clicking the EyeBrowse icon in your browser toolbar.</p>
+        
+        <div class="button-container">
+          <button id="startBrowsing" class="primary-button">Start Browsing</button>
+          <button id="viewTutorial" class="primary-button">View Tutorial</button>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Start browsing button - opens a new tab with a sample website
+        document.getElementById('startBrowsing').addEventListener('click', function() {
+          chrome.tabs.create({ url: 'https://www.google.com' });
+          window.close();
+        });
+        
+        // View tutorial button - opens tutorial page
+        document.getElementById('viewTutorial').addEventListener('click', function() {
+          chrome.tabs.create({ url: 'tutorial.html' });
+          window.close();
+        });
+      });
+    </script>
+  </body>
+</html>

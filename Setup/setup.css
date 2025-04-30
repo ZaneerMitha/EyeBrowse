@@ -87,3 +87,46 @@ body {
     border: 1px solid #ddd;
     border-radius: 5px;
   }
+
+  /* Add these styles to setup.css to enhance the font preview */
+
+.font-preview {
+  margin: 15px 0;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  min-height: 80px;
+  transition: all 0.3s ease;
+}
+
+/* Specific styles for each font preview */
+.font-preview.opendyslexic {
+  font-family: 'OpenDyslexic', Arial, sans-serif;
+  letter-spacing: 0.15em;
+  word-spacing: 0.25em;
+  line-height: 1.4;
+}
+
+.font-preview.arial {
+  font-family: Arial, sans-serif;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+  line-height: 1.3;
+}
+
+.font-preview.comic-sans {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+  line-height: 1.3;
+}
+
+/* Sample text formatting */
+.font-preview p {
+  margin: 0 0 10px 0;
+}
+
+.font-preview .sample-paragraph {
+  margin-top: 15px;
+  font-size: 0.9em;
+}

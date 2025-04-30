@@ -29,7 +29,7 @@
           <h3>Tritanopia/Tritanomaly</h3>
           <p>Difficulty distinguishing between blues and yellows.</p>
         </div>
-        <div class="option-card" data-value="achromatopsia">
+        <div class="option-card" data-value="grayscale">
           <h3>Achromatopsia/Monochromacy</h3>
           <p>Complete or near-complete inability to distinguish colors.</p>
         </div>
@@ -66,13 +66,13 @@
           <option value="default">Default (No change)</option>
           <option value="opendyslexic">OpenDyslexic (Helpful for dyslexia)</option>
           <option value="arial">Arial</option>
-          <option value="verdana">Verdana</option>
-          <option value="tahoma">Tahoma</option>
           <option value="comic-sans">Comic Sans MS</option>
         </select>
         
         <div class="font-preview" id="font-preview">
-          This is a preview of how text will appear with your selected font.
+          <h4>Font Preview</h4>
+          <p>This is a preview of how text will appear with your selected font.</p>
+          <p class="sample-paragraph">The quick brown fox jumps over the lazy dog. Reading this text should give you a sense of how comfortable this font is for you.</p>
         </div>
         
         <div class="btn-container">
@@ -100,6 +100,9 @@
           <div class="slider-labels">
             <span>Standard (100%)</span>
             <span>Very Large (200%)</span>
+          </div>
+          <div id="text-size-preview">
+            <p style="margin-top: 10px;">Sample text at <span id="text-size-value">100%</span></p>
           </div>
         </div>
         

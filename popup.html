@@ -1,266 +1,691 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>EyeBrowse</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 10px;
-        min-width: 300px;
-        max-width: 350px;
-      }
-      h1 {
-        font-size: 16px;
-        margin-bottom: 15px;
-        color: #333;
-      }
-      label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-      }
-      .slider-container {
-        margin-top: 10px;
-        margin-bottom: 15px;
-      }
-      .slider-value {
-        display: inline-block;
-        width: 40px;
-        text-align: right;
-        margin-left: 10px;
-      }
-      select, input[type="range"] {
-        width: 100%;
-        margin-bottom: 10px;
-      }
-      .section {
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ccc;
-        margin-bottom: 10px;
-      }
-      .option-row {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-      .switch {
-        position: relative;
-        display: inline-block;
-        width: 40px;
-        height: 20px;
-        margin-right: 10px;
-      }
-      .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-      .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        transition: .4s;
-        border-radius: 20px;
-      }
-      .slider:before {
-        position: absolute;
-        content: "";
-        height: 16px;
-        width: 16px;
-        left: 2px;
-        bottom: 2px;
-        background-color: white;
-        transition: .4s;
-        border-radius: 50%;
-      }
-      input:checked + .slider {
-        background-color: #2196F3;
-      }
-      input:checked + .slider:before {
-        transform: translateX(20px);
-      }
-      #resetAll {
-        display: block;
-        width: 100%;
-        background-color: #f1f1f1;
-        border: 1px solid #ddd;
-        padding: 8px;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 15px;
-      }
-      #resetAll:hover {
-        background-color: #e8e8e8;
-      }
-      .tabs {
-        display: flex;
-        margin-bottom: 10px;
-      }
-      .tab {
-        padding: 8px 12px;
-        cursor: pointer;
-        background-color: #f1f1f1;
-        border: 1px solid #ddd;
-        border-bottom: none;
-        border-radius: 4px 4px 0 0;
-        margin-right: 5px;
-      }
-      .tab.active {
-        background-color: #fff;
-        border-bottom: 1px solid #fff;
-        margin-bottom: -1px;
-        font-weight: bold;
-      }
-      .tab-content {
-        display: none;
-      }
-      .tab-content.active {
-        display: block;
-      }
-      .range-slider-labels {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.7em;
-        color: #666;
-        margin-top: -5px;
-        margin-bottom: 10px;
-      }
-    </style>
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <h1>EyeBrowse Settings</h1>
-    
-    <div class="tabs">
-      <div class="tab active" data-tab="vision">Vision</div>
-      <div class="tab" data-tab="text">Text</div>
-    </div>
-    
-    <div class="tab-content active" id="vision-tab">
-      <div class="section">
-        <label for="filterToggle">Select Vision Mode:</label>
-        <select id="filterToggle">
-          <option value="OFF">Normal Vision</option>
-          <option value="PROTANOPIA">Protanopia (Red-Blind)</option>
-          <option value="DEUTERANOPIA">Deuteranopia (Green-Blind)</option>
-          <option value="TRITANOPIA">Tritanopia (Blue-Blind)</option>
-          <option value="GRAYSCALE">Grayscale</option>
-          <option value="DARK">Dark Mode</option>
+    <!-- Regular popup content -->
+    <div id="regular-popup">
+      <div class="app-header">
+        <!-- <img
+          src="images/EyeBrowseLogo32.png"
+          alt="EyeBrowse logo"
+          class="app-logo"
+        /> -->
+        <h1 class="app-title" data-i18n="eyebrowse">EyeBrowse</h1>
+      </div>
+      <div class="language-selector">
+        <select id="languageSelector" aria-label="Select language">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
         </select>
       </div>
 
-      <div class="section">
-        <div class="option-row">
-          <label class="switch">
-            <input type="checkbox" id="fontToggle">
-            <span class="slider"></span>
-          </label>
-          <label for="fontToggle">Enable Dyslexia-Friendly Font</label>
-        </div>
-        
-        <div id="fontOptions" style="display: none;">
-          <select id="fontSelector">
-            <option value="opendyslexic">OpenDyslexic</option>
-            <option value="arial">Arial</option>
-            <option value="comic-sans">Comic Sans MS</option>
+      <div class="tabs" role="tablist">
+        <button
+          class="tab active"
+          data-tab="vision"
+          role="tab"
+          aria-selected="true"
+          aria-controls="vision-tab"
+          data-i18n="vision"
+        >
+          Vision
+        </button>
+        <button
+          class="tab"
+          data-tab="text"
+          role="tab"
+          aria-selected="false"
+          aria-controls="text-tab"
+          data-i18n="text"
+        >
+          Text
+        </button>
+        <button
+          class="tab"
+          data-tab="accessibility"
+          role="tab"
+          aria-selected="false"
+          aria-controls="accessibility-tab"
+          data-i18n="accessibility"
+        >
+          Accessibility
+        </button>
+      </div>
+
+      <div
+        class="tab-content active"
+        id="vision-tab"
+        role="tabpanel"
+        aria-labelledby="vision-tab"
+      >
+        <div class="section">
+          <label for="filterToggle" data-i18n="vision_mode">Vision Mode</label>
+          <select id="filterToggle" aria-label="Select vision mode">
+            <option value="OFF" data-i18n="normal_vision">Normal Vision</option>
+            <option value="PROTANOPIA" data-i18n="protanopia">
+              Protanopia (Red-Blind)
+            </option>
+            <option value="DEUTERANOPIA" data-i18n="deuteranopia">
+              Deuteranopia (Green-Blind)
+            </option>
+            <option value="TRITANOPIA" data-i18n="tritanopia">
+              Tritanopia (Blue-Blind)
+            </option>
+            <option value="GRAYSCALE" data-i18n="grayscale">Grayscale</option>
+            <option value="DARK" data-i18n="dark_mode">Dark Mode</option>
           </select>
+        </div>
+
+        <div class="section">
+          <div class="option-row">
+            <label class="switch">
+              <input
+                type="checkbox"
+                id="fontToggle"
+                aria-label="Enable special font"
+              />
+              <span class="slider"></span>
+            </label>
+            <label for="fontToggle" data-i18n="enable_font"
+              >Enable Accessibility Font</label
+            >
+          </div>
+
+          <div id="fontOptions" style="display: none">
+            <select id="fontSelector" aria-label="Select font type">
+              <option value="opendyslexic">OpenDyslexic</option>
+              <option value="arial">Arial</option>
+              <option value="comic-sans">Comic Sans MS</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section slider-container">
+          <label for="zoomSlider" data-i18n="page_zoom">
+            Page Zoom
+            <span id="zoomValue" class="slider-value">100</span>
+          </label>
+          <input
+            type="range"
+            id="zoomSlider"
+            min="75"
+            max="200"
+            value="100"
+            step="5"
+            aria-label="Adjust page zoom"
+          />
+          <div class="range-slider-labels">
+            <span data-i18n="smaller">Smaller</span>
+            <span data-i18n="larger">Larger</span>
+          </div>
         </div>
       </div>
 
-      <div class="section slider-container">
-        <label for="zoomSlider">Page Zoom: <span id="zoomValue" class="slider-value">100</span>%</label>
-        <input type="range" id="zoomSlider" min="75" max="200" value="100" step="5">
+      <div
+        class="tab-content"
+        id="text-tab"
+        role="tabpanel"
+        aria-labelledby="text-tab"
+      >
+        <div class="section slider-container">
+          <label for="textSizeSlider" data-i18n="text_size">
+            Text Size
+            <span id="textSizeValue" class="slider-value">100</span>
+          </label>
+          <input
+            type="range"
+            id="textSizeSlider"
+            min="100"
+            max="200"
+            value="100"
+            step="5"
+            aria-label="Adjust text size"
+          />
+          <div class="range-slider-labels">
+            <span data-i18n="default">Default</span>
+            <span data-i18n="larger">Larger</span>
+          </div>
+        </div>
+
+        <div class="section slider-container">
+          <label for="lineSpacingSlider" data-i18n="line_spacing">
+            Line Spacing
+            <span id="lineSpacingValue" class="slider-value">1.0</span>
+          </label>
+          <input
+            type="range"
+            id="lineSpacingSlider"
+            min="10"
+            max="30"
+            value="10"
+            step="2"
+            aria-label="Adjust line spacing"
+          />
+          <div class="range-slider-labels">
+            <span data-i18n="normal">Normal</span>
+            <span data-i18n="spacious">Spacious</span>
+          </div>
+        </div>
+
+        <div class="section slider-container">
+          <label for="letterSpacingSlider" data-i18n="letter_spacing">
+            Letter Spacing
+            <span id="letterSpacingValue" class="slider-value">0</span>
+          </label>
+          <input
+            type="range"
+            id="letterSpacingSlider"
+            min="0"
+            max="10"
+            value="0"
+            step="1"
+            aria-label="Adjust letter spacing"
+          />
+          <div class="range-slider-labels">
+            <span data-i18n="none">None</span>
+            <span data-i18n="wide">Wide</span>
+          </div>
+        </div>
+
+        <div class="section slider-container">
+          <label for="wordSpacingSlider" data-i18n="word_spacing">
+            Word Spacing
+            <span id="wordSpacingValue" class="slider-value">0</span>
+          </label>
+          <input
+            type="range"
+            id="wordSpacingSlider"
+            min="0"
+            max="15"
+            value="0"
+            step="1"
+            aria-label="Adjust word spacing"
+          />
+          <div class="range-slider-labels">
+            <span data-i18n="normal">Normal</span>
+            <span data-i18n="wide">Wide</span>
+          </div>
+        </div>
+
+        <div class="section slider-container">
+          <label for="columnWidthSlider" data-i18n="reading_width">
+            Reading Width
+            <span id="columnWidthValue" class="slider-value">100</span>
+          </label>
+          <input
+            type="range"
+            id="columnWidthSlider"
+            min="40"
+            max="100"
+            value="100"
+            step="5"
+            aria-label="Adjust reading width"
+          />
+          <div class="range-slider-labels">
+            <span data-i18n="narrow">Narrow</span>
+            <span data-i18n="full">Full</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add the new accessibility tab content -->
+      <div
+        class="tab-content"
+        id="accessibility-tab"
+        role="tabpanel"
+        aria-labelledby="accessibility-tab"
+      >
+        <!-- Text-to-Speech Section -->
+        <div class="section">
+          <h3 data-i18n="text_to_speech">Text-to-Speech</h3>
+          <div class="option-row">
+            <label class="switch">
+              <input
+                type="checkbox"
+                id="ttsToggle"
+                aria-label="Enable text-to-speech"
+              />
+              <span class="slider"></span>
+            </label>
+            <label for="ttsToggle" data-i18n="enable_tts"
+              >Enable Text-to-Speech</label
+            >
+          </div>
+
+          <div id="ttsOptions" style="display: none; margin-top: 10px">
+            <!-- Add hover reading option -->
+            <div class="option-row">
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  id="ttsHoverToggle"
+                  aria-label="Enable hover reading"
+                />
+                <span class="slider"></span>
+              </label>
+              <label for="ttsHoverToggle" data-i18n="enable_hover_reading"
+                >Read text on hover</label
+              >
+            </div>
+
+            <div class="slider-container">
+              <label for="ttsRateSlider" data-i18n="speech_rate">
+                Speech Rate
+                <span id="ttsRateValue" class="slider-value">1.0</span>
+              </label>
+              <input
+                type="range"
+                id="ttsRateSlider"
+                min="0.5"
+                max="2"
+                value="1"
+                step="0.1"
+                aria-label="Adjust speech rate"
+              />
+              <div class="range-slider-labels">
+                <span data-i18n="slower">Slower</span>
+                <span data-i18n="faster">Faster</span>
+              </div>
+            </div>
+
+            <div class="slider-container">
+              <label for="ttsPitchSlider" data-i18n="speech_pitch">
+                Speech Pitch
+                <span id="ttsPitchValue" class="slider-value">1.0</span>
+              </label>
+              <input
+                type="range"
+                id="ttsPitchSlider"
+                min="0.5"
+                max="2"
+                value="1"
+                step="0.1"
+                aria-label="Adjust speech pitch"
+              />
+              <div class="range-slider-labels">
+                <span data-i18n="lower">Lower</span>
+                <span data-i18n="higher">Higher</span>
+              </div>
+            </div>
+
+            <div
+              class="controls-row"
+              style="margin-top: 10px; display: flex; gap: 8px"
+            >
+              <button
+                id="ttsStartReading"
+                class="primary-button"
+                style="flex: 1"
+                data-i18n="start_reading"
+              >
+                Start Reading
+              </button>
+              <button
+                id="ttsStopReading"
+                class="secondary-button"
+                style="flex: 1"
+                data-i18n="stop"
+              >
+                Stop
+              </button>
+            </div>
+
+            <div style="margin-top: 10px">
+              <label for="ttsVoiceSelector" data-i18n="select_voice"
+                >Select Voice</label
+              >
+              <select id="ttsVoiceSelector" aria-label="Select voice">
+                <option value="" data-i18n="default_voice">
+                  Default Voice
+                </option>
+                <!-- Will be populated with available voices -->
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen Reader Support Section -->
+        <div class="section">
+          <h3 data-i18n="screen_reader">Screen Reader Support</h3>
+          <div class="option-row">
+            <label class="switch">
+              <input
+                type="checkbox"
+                id="screenReaderToggle"
+                aria-label="Enable screen reader improvements"
+              />
+              <span class="slider"></span>
+            </label>
+            <label for="screenReaderToggle" data-i18n="enhance_screen_reader">
+              Enhance Screen Reader Experience
+            </label>
+          </div>
+
+          <div
+            id="screenReaderInfo"
+            style="display: none; margin-top: 10px; font-size: 12px"
+          >
+            <p data-i18n="screen_reader_info">
+              This feature improves accessibility by:
+            </p>
+            <ul style="margin-left: 15px; list-style-type: disc">
+              <li data-i18n="skip_links">Adding skip links for navigation</li>
+              <li data-i18n="enhance_headings">
+                Enhancing headings and landmarks
+              </li>
+              <li data-i18n="improve_images">Improving image descriptions</li>
+              <li data-i18n="keyboard_shortcuts">Adding keyboard shortcuts</li>
+            </ul>
+            <p style="margin-top: 5px">
+              <strong data-i18n="shortcut_info">Keyboard shortcuts:</strong>
+            </p>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: auto 1fr;
+                gap: 5px;
+                margin-left: 15px;
+              "
+            >
+              <span><strong>H</strong>:</span
+              ><span data-i18n="navigate_headings">Navigate headings</span>
+              <span><strong>L</strong>:</span
+              ><span data-i18n="navigate_links">Navigate links</span>
+              <span><strong>F</strong>:</span
+              ><span data-i18n="navigate_forms">Navigate form elements</span>
+              <span><strong>M</strong>:</span
+              ><span data-i18n="jump_to_main">Jump to main content</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button
+          id="runSetupWizard"
+          class="primary-button"
+          data-i18n="setup_wizard"
+        >
+          Setup Wizard
+        </button>
+        <button id="resetAll" class="secondary-button" data-i18n="reset_all">
+          Reset All
+        </button>
       </div>
     </div>
-    
-    <div class="tab-content" id="text-tab">
-      <div class="section slider-container">
-        <label for="textSizeSlider">Text Size: <span id="textSizeValue" class="slider-value">100</span>%</label>
-        <input type="range" id="textSizeSlider" min="100" max="200" value="100" step="5">
-        <div class="range-slider-labels">
-          <span>Default</span>
-          <span>Larger</span>
-        </div>
+
+    <!-- Setup Wizard -->
+    <div id="setup-wizard">
+      <div class="app-header">
+        <!-- <img
+          src="images/EyeBrowseLogo32.png"
+          alt="EyeBrowse logo"
+          class="app-logo"
+        /> -->
+        <h1 class="app-title" data-i18n="setup_wizard">Setup Wizard</h1>
       </div>
-      
-      <div class="section slider-container">
-        <label for="lineSpacingSlider">Line Spacing: <span id="lineSpacingValue" class="slider-value">1.0</span>×</label>
-        <input type="range" id="lineSpacingSlider" min="10" max="30" value="10" step="2">
-        <div class="range-slider-labels">
-          <span>Normal</span>
-          <span>Spacious</span>
-        </div>
+      <div class="language-selector">
+        <select id="setupLanguageSelector" aria-label="Select language">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+        </select>
       </div>
-      
-      <div class="section slider-container">
-        <label for="letterSpacingSlider">Letter Spacing: <span id="letterSpacingValue" class="slider-value">0</span>px</label>
-        <input type="range" id="letterSpacingSlider" min="0" max="10" value="0" step="1">
-        <div class="range-slider-labels">
-          <span>None</span>
-          <span>Wide</span>
-        </div>
+
+      <div class="progress-indicator">
+        <div class="progress-dot active" aria-hidden="true"></div>
+        <div class="progress-dot" aria-hidden="true"></div>
+        <div class="progress-dot" aria-hidden="true"></div>
+        <span class="sr-only">Step 1 of 3</span>
       </div>
-      
-      <div class="section slider-container">
-        <label for="wordSpacingSlider">Word Spacing: <span id="wordSpacingValue" class="slider-value">0</span>px</label>
-        <input type="range" id="wordSpacingSlider" min="0" max="15" value="0" step="1">
-        <div class="range-slider-labels">
-          <span>Normal</span>
-          <span>Wide</span>
+
+      <div class="setup-container">
+        <!-- Step 1: Vision Type -->
+        <div class="setup-step active" id="setup-step1">
+          <h2 data-i18n="vision">Color Vision</h2>
+          <p data-i18n="select_option">
+            Select the option that matches your vision needs:
+          </p>
+
+          <div
+            class="option-card"
+            data-value="none"
+            tabindex="0"
+            role="radio"
+            aria-checked="false"
+          >
+            <h3 data-i18n="normal_vision">Normal Vision</h3>
+            <p data-i18n="normal_vision_desc">
+              I have normal color vision or a different visual impairment.
+            </p>
+          </div>
+          <div
+            class="option-card"
+            data-value="protanopia"
+            tabindex="0"
+            role="radio"
+            aria-checked="false"
+          >
+            <h3 data-i18n="protanopia_title">Protanopia/Protanomaly</h3>
+            <p data-i18n="protanopia_desc">
+              Difficulty with reds and greens, reds appear darker.
+            </p>
+          </div>
+          <div
+            class="option-card"
+            data-value="deuteranopia"
+            tabindex="0"
+            role="radio"
+            aria-checked="false"
+          >
+            <h3 data-i18n="deuteranopia_title">Deuteranopia/Deuteranomaly</h3>
+            <p data-i18n="deuteranopia_desc">
+              Difficulty with reds and greens, most common type.
+            </p>
+          </div>
+          <div
+            class="option-card"
+            data-value="tritanopia"
+            tabindex="0"
+            role="radio"
+            aria-checked="false"
+          >
+            <h3 data-i18n="tritanopia_title">Tritanopia/Tritanomaly</h3>
+            <p data-i18n="tritanopia_desc">
+              Difficulty with blues and yellows.
+            </p>
+          </div>
+          <div
+            class="option-card"
+            data-value="grayscale"
+            tabindex="0"
+            role="radio"
+            aria-checked="false"
+          >
+            <h3 data-i18n="monochromacy_title">Monochromacy</h3>
+            <p data-i18n="monochromacy_desc">Limited or no color vision.</p>
+          </div>
         </div>
-      </div>
-      
-      <div class="section slider-container">
-        <label for="columnWidthSlider">Reading Width: <span id="columnWidthValue" class="slider-value">100</span>%</label>
-        <input type="range" id="columnWidthSlider" min="40" max="100" value="100" step="5">
-        <div class="range-slider-labels">
-          <span>Narrow</span>
-          <span>Full</span>
-        </div>
-      </div>
-      
-      <div class="section slider-container">
-        <label for="paragraphSpacingSlider">Paragraph Spacing: <span id="paragraphSpacingValue" class="slider-value">1.0</span>×</label>
-        <input type="range" id="paragraphSpacingSlider" min="10" max="30" value="10" step="2">
-        <div class="range-slider-labels">
-          <span>Default</span>
-          <span>Spacious</span>
-        </div>
-      </div>
-      
-      <div class="section">
-        <div class="option-row">
-          <label class="switch">
-            <input type="checkbox" id="textGuideToggle">
-            <span class="slider"></span>
-          </label>
-          <label for="textGuideToggle">Enable Text Tracking Guide</label>
-        </div>
-      </div>
-      
-      <div class="section">
-        <div class="option-row">
-          <label class="switch">
-            <input type="checkbox" id="highContrastToggle">
-            <span class="slider"></span>
-          </label>
-          <label for="highContrastToggle">High Contrast Text</label>
-        </div>
-        
-        <div id="contrastOptions" style="display: none;">
-          <select id="contrastSelector">
-            <option value="normal">Black on White</option>
-            <option value="inverted">White on Black</option>
+
+        <!-- Step 2: Reading Difficulties -->
+        <div class="setup-step" id="setup-step2">
+          <h2 data-i18n="reading_preferences">Reading Preferences</h2>
+          <p data-i18n="select_apply">Select all that apply to you:</p>
+
+          <div class="checkbox-label">
+            <input
+              type="checkbox"
+              id="setup-dyslexia"
+              name="reading"
+              value="dyslexia"
+            />
+            <label for="setup-dyslexia" data-i18n="dyslexia"
+              >Dyslexia or reading difficulties</label
+            >
+          </div>
+          <div class="checkbox-label">
+            <input
+              type="checkbox"
+              id="setup-tracking"
+              name="reading"
+              value="tracking"
+            />
+            <label for="setup-tracking" data-i18n="tracking"
+              >Difficulty tracking text lines</label
+            >
+          </div>
+          <div class="checkbox-label">
+            <input
+              type="checkbox"
+              id="setup-focus"
+              name="reading"
+              value="focus"
+            />
+            <label for="setup-focus" data-i18n="focus"
+              >Easily distracted by page elements</label
+            >
+          </div>
+          <div class="checkbox-label">
+            <input
+              type="checkbox"
+              id="setup-small-text"
+              name="reading"
+              value="small-text"
+            />
+            <label for="setup-small-text" data-i18n="small_text"
+              >Difficulty reading small text</label
+            >
+          </div>
+
+          <h3 data-i18n="font_preference">Font Preference</h3>
+          <select
+            id="setup-font-preference"
+            aria-label="Select your preferred font"
+          >
+            <option value="default" data-i18n="default_option">
+              Default (No change)
+            </option>
+            <option value="opendyslexic" data-i18n="opendyslexic_option">
+              OpenDyslexic (for dyslexia)
+            </option>
+            <option value="arial" data-i18n="arial_option">Arial</option>
+            <option value="comic-sans" data-i18n="comic_sans_option">
+              Comic Sans MS
+            </option>
           </select>
+
+          <div class="font-preview" id="setup-font-preview">
+            <p data-i18n="font_preview">
+              Font preview: The quick brown fox jumps over the lazy dog.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3: Visual Comfort -->
+        <div class="setup-step" id="setup-step3">
+          <h2 data-i18n="visual_comfort">Visual Comfort</h2>
+
+          <h3 data-i18n="brightness_sensitivity">
+            Screen Brightness Sensitivity
+          </h3>
+          <div class="slider-container">
+            <div class="slider-wrapper">
+              <input
+                type="range"
+                min="1"
+                max="10"
+                value="5"
+                class="slider"
+                id="setup-brightness-sensitivity"
+                aria-label="Adjust brightness sensitivity"
+              />
+            </div>
+            <div class="range-slider-labels">
+              <span data-i18n="not_sensitive">Not sensitive</span>
+              <span data-i18n="very_sensitive">Very sensitive</span>
+            </div>
+          </div>
+
+          <h3 data-i18n="preferred_text_size">Preferred Text Size</h3>
+          <div class="slider-container">
+            <div class="slider-wrapper">
+              <input
+                type="range"
+                min="100"
+                max="200"
+                value="100"
+                step="10"
+                class="slider"
+                id="setup-text-size"
+                aria-label="Adjust text size"
+              />
+            </div>
+            <div class="range-slider-labels">
+              <span data-i18n="default_size">Default (100%)</span>
+              <span data-i18n="large_size">Large (200%)</span>
+            </div>
+            <div id="setup-text-size-preview">
+              <span data-i18n="sample_text">Sample text at </span
+              ><span id="setup-text-size-value">100%</span>
+            </div>
+          </div>
+
+          <div class="checkbox-label">
+            <input
+              type="checkbox"
+              id="setup-dark-mode"
+              name="comfort"
+              value="dark-mode"
+            />
+            <label for="setup-dark-mode" data-i18n="enable_dark_mode"
+              >Enable dark mode where possible</label
+            >
+          </div>
         </div>
       </div>
+
+      <div class="setup-bottom">
+        <button
+          id="setup-back"
+          class="secondary-button"
+          style="display: none"
+          data-i18n="back"
+        >
+          Back
+        </button>
+        <button id="setup-next" class="primary-button" data-i18n="next">
+          Next
+        </button>
+        <button
+          id="setup-finish"
+          class="primary-button"
+          style="display: none"
+          data-i18n="finish"
+        >
+          Finish Setup
+        </button>
+        <button id="setup-cancel" class="secondary-button" data-i18n="cancel">
+          Cancel
+        </button>
+      </div>
     </div>
-    
-    <button id="resetAll">Reset All Settings</button>
+
+    <!-- Setup Complete Success Message -->
+    <div id="setup-complete">
+      <div class="success-icon">✓</div>
+      <h2 data-i18n="setup_complete">Setup Complete!</h2>
+      <p data-i18n="optimized">
+        Your browsing experience is now optimized based on your preferences.
+      </p>
+      <button id="setup-complete-done" class="primary-button" data-i18n="done">
+        Done
+      </button>
+    </div>
 
     <script src="popup.js"></script>
   </body>

@@ -1,48 +1,84 @@
 /* 
- * Improved protanopia (red-blind) filter
- * Uses proper filters for images and content
+ * Assistive CSS for Protanopia (Red Deficient Color Vision)
+ * These styles help users with protanopia by enhancing color contrast
+ * and providing additional non-color visual cues
  */
 
-/* Basic page content filter */
+/* Enhance red-green color contrast */
 html {
-  filter: brightness(1.05) saturate(1.2) !important;
+  filter: contrast(110%) brightness(105%) !important;
 }
 
-/* Special image filter that properly simulates protanopia */
-img, video, canvas, svg, [style*="background-image"] {
-  /* This filter matrix was designed to simulate protanopia accurately */
-  filter: url('data:image/svg+xml,\
-    <svg xmlns="http://www.w3.org/2000/svg">\
-      <filter id="protanopia">\
-        <feColorMatrix type="matrix" values="\
-          0.567, 0.433, 0,     0, 0 \
-          0.558, 0.442, 0,     0, 0 \
-          0,     0.242, 0.758, 0, 0 \
-          0,     0,     0,     1, 0"/>\
-      </filter>\
-    </svg>#protanopia') !important;
-}
-
-/* Fallback filter for browsers that don't support SVG filters */
-@supports not (filter: url('#protanopia')) {
-  img, video, canvas, svg, [style*="background-image"] {
-    filter: grayscale(50%) sepia(50%) hue-rotate(-15deg) saturate(150%) !important;
-  }
-}
-
-/* Add visual indicators for important red elements */
-[style*="color: red"], [style*="color:#f00"], [style*="color:#ff0000"],
+/* Make red elements more distinguishable */
+[style*="color: red"], .text-danger, .text-error, .danger, .error,
+[style*="color:#f00"], [style*="color:#ff0000"],
 [style*="color: #f00"], [style*="color: #ff0000"] {
-  border-bottom: 1px dotted #000 !important;
+  /* Make reds darker and more prominent */
+  color: #d00000 !important;
   font-weight: bold !important;
+  text-shadow: 0px 0px 1px rgba(0,0,0,0.5) !important;
 }
 
-/* Add an icon to important red elements */
-.error, .alert-danger, [class*="error"], [class*="danger"] {
-  position: relative !important;
+/* Add textures to red backgrounds */
+[style*="background-color: red"], .bg-danger, 
+[style*="background-color:#f00"], [style*="background-color:#ff0000"],
+[style*="background: red"], [style*="background:#f00"] {
+  background-color: #d00000 !important;
+  background-image: linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1) 75%, transparent 75%, transparent) !important;
+  background-size: 10px 10px !important;
+  border: 2px solid black !important;
 }
 
-.error::before, .alert-danger::before, [class*="error"]::before, [class*="danger"]::before {
-  content: "⚠️" !important;
-  margin-right: 5px !important;
+/* Make green elements more distinguishable */
+[style*="color: green"], .text-success, .success,
+[style*="color:#0f0"], [style*="color:#00ff00"], 
+[style*="color: #0f0"], [style*="color: #00ff00"] {
+  /* Make greens darker and more bluish */
+  color: #008066 !important;
+  font-weight: bold !important;
+  text-shadow: 0px 0px 1px rgba(0,0,0,0.5) !important;
+}
+
+/* Add textures to green backgrounds */
+[style*="background-color: green"], .bg-success,
+[style*="background-color:#0f0"], [style*="background-color:#00ff00"],
+[style*="background: green"], [style*="background:#0f0"] {
+  background-color: #008066 !important;
+  background-image: linear-gradient(135deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1) 75%, transparent 75%, transparent) !important;
+  background-size: 10px 10px !important;
+  border: 2px solid black !important;
+}
+
+/* Add icons to improve identification */
+.error::before, .danger::before, 
+.alert-danger::before, .alert-error::before {
+  content: "✖ " !important;
+}
+
+.success::before, .alert-success::before {
+  content: "✓ " !important;
+}
+
+/* Improve form validation indicators */
+input:valid, .is-valid {
+  border: 2px solid #008066 !important; /* Dark teal instead of green */
+  box-shadow: 0 0 0 1px #008066 !important;
+}
+
+input:invalid, .is-invalid {
+  border: 2px solid #d00000 !important; /* Dark red */
+  box-shadow: 0 0 0 1px #d00000 !important;
+}
+
+/* Add clear outline to links */
+a:link, a:visited {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 2px !important;
+}
+
+/* Add clear focus indicators */
+*:focus {
+  outline: 3px solid #0074D9 !important;
+  outline-offset: 2px !important;
 }

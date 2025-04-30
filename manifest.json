@@ -33,7 +33,14 @@
     {
       "resources": [
         "fonts/*.css",
-        "*.css"
+        "*.css",
+        "setup.html",
+        "setup.js",
+        "setup.css",
+        "setup-complete.html",
+        "tutorial.html",
+        "tts-content.js",
+        "screen-reader-support.js"
       ],
       "matches": ["<all_urls>"]
     }

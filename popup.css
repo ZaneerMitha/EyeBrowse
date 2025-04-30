@@ -1,0 +1,744 @@
+/* EyeBrowse Accessible UI Styles */
+
+/* Base styles with focus on accessibility */
+:root {
+  --primary-blue: #2673e8;
+  --primary-blue-light: #5294f5;
+  --primary-blue-dark: #1a5dc7;
+  --text-color: #262626;
+  --text-light: #555555;
+  --bg-color: #ffffff;
+  --border-color: #d1d1d1;
+  --focus-outline: #5294f5 solid 2px;
+  --section-bg: #f7f9fd;
+  --hover-bg: #eef4ff;
+  --button-text: #ffffff;
+  --switch-off: #cccccc;
+  --success-color: #30b465;
+  --slider-track: #e0e0e0;
+}
+
+/* Updated app header with language selector */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+}
+
+.app-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-blue-dark);
+  margin: 0;
+}
+
+.language-selector {
+  position: relative;
+}
+
+#languageSelector {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--primary-blue-dark);
+  cursor: pointer;
+  appearance: none;
+  padding-right: 20px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%232673e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+  background-repeat: no-repeat;
+  background-position: right 5px center;
+  background-size: 12px;
+}
+
+#languageSelector:hover {
+  border-color: var(--primary-blue);
+}
+
+#languageSelector:focus {
+  outline: 2px solid var(--primary-blue-light);
+  border-color: var(--primary-blue);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: 0;
+  padding: 16px;
+  min-width: 340px;
+  max-width: 380px;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.5;
+}
+
+/* Improved typography for readability */
+h1 {
+  font-size: 18px;
+  margin: 0 0 16px 0;
+  color: var(--text-color);
+  font-weight: 600;
+  text-align: center;
+}
+
+h2 {
+  font-size: 16px;
+  margin: 0 0 12px 0;
+}
+
+h3 {
+  font-size: 14px;
+  margin: 12px 0 8px 0;
+  font-weight: 600;
+}
+
+p {
+  font-size: 14px;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+/* Accessible form controls */
+select,
+input[type="range"] {
+  width: 100%;
+  margin-bottom: 16px;
+  border-radius: 6px;
+}
+
+select {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  font-size: 14px;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-color: var(--bg-color);
+}
+
+select:focus {
+  outline: var(--focus-outline);
+  border-color: var(--primary-blue);
+}
+
+/* Enhanced slider styles */
+.slider-container {
+  margin: 20px 0;
+  position: relative;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: var(--slider-track);
+  border-radius: 4px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--primary-blue);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--primary-blue);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px var(--primary-blue-light);
+}
+
+.slider-value {
+  display: inline-block;
+  width: 48px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  background: var(--primary-blue);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin-left: 10px;
+  position: relative;
+  top: -2px;
+}
+
+.range-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 4px;
+  margin-bottom: 16px;
+  padding: 0 2px;
+}
+
+/* Improved section styling */
+.section {
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  background-color: var(--section-bg);
+  border: 1px solid var(--border-color);
+}
+
+/* Better switch styling */
+.option-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+  margin-right: 12px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--switch-off);
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-blue);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 0 2px var(--primary-blue-light);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Better tab styling */
+.tabs {
+  display: flex;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tab {
+  padding: 10px 16px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-right: 8px;
+  font-weight: 500;
+  color: var(--text-light);
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  background-color: var(--hover-bg);
+  color: var(--primary-blue);
+}
+
+.tab.active {
+  border-bottom: 3px solid var(--primary-blue);
+  color: var(--primary-blue);
+  font-weight: 600;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Improved buttons */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.primary-button {
+  flex: 1;
+  padding: 10px 16px;
+  background-color: var(--primary-blue);
+  color: var(--button-text);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0 6px;
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.secondary-button {
+  flex: 1;
+  padding: 10px 16px;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  margin: 0 6px;
+  transition: all 0.2s;
+}
+
+.primary-button:hover {
+  background-color: var(--primary-blue-dark);
+}
+
+.primary-button:focus {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+.secondary-button:hover {
+  background-color: var(--hover-bg);
+  border-color: var(--primary-blue-light);
+}
+
+.secondary-button:focus {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+/* Setup wizard styles */
+#setup-wizard {
+  display: none; /* Hidden by default */
+}
+
+.setup-container {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.setup-step {
+  display: none;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: var(--section-bg);
+  border: 1px solid var(--border-color);
+}
+
+.setup-step.active {
+  display: block;
+}
+
+.option-card {
+  padding: 12px;
+  margin: 10px 0;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: white;
+}
+
+.option-card:hover {
+  border-color: var(--primary-blue-light);
+  background-color: var(--hover-bg);
+}
+
+.option-card.selected {
+  border-color: var(--primary-blue);
+  background-color: var(--hover-bg);
+}
+
+.option-card h3 {
+  margin: 0 0 6px 0;
+  font-size: 15px;
+  color: var(--primary-blue-dark);
+}
+
+.option-card p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  accent-color: var(--primary-blue);
+}
+
+.font-preview {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: white;
+}
+
+.setup-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Success message */
+#setup-complete {
+  display: none;
+  text-align: center;
+  padding: 24px 0;
+}
+
+.success-icon {
+  font-size: 48px;
+  color: var(--success-color);
+  margin-bottom: 16px;
+}
+
+/* Progress indicator for setup wizard */
+.progress-indicator {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 16px 0;
+}
+
+.progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--border-color);
+  margin: 0 4px;
+}
+
+.progress-dot.active {
+  background-color: var(--primary-blue);
+  transform: scale(1.2);
+}
+
+/* Helper text for screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Logo and branding */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.app-logo {
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+}
+
+.app-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-blue-dark);
+}
+
+/* 
+ * Colorblindness Enhancement CSS
+ * These filters ENHANCE color differences to help users with colorblindness
+ */
+
+/* PROTANOPIA - Help users who have trouble seeing reds */
+html.eyebrowse-filter-protanopia {
+  /* No filters that simulate or "correct" colorblindness */
+  filter: none !important;
+}
+
+/* Simply increase contrast to make distinctions clearer */
+html.eyebrowse-filter-protanopia body {
+  /* Slight increase in contrast helps see more details */
+  filter: contrast(110%) !important;
+}
+
+/* Specifically target problematic colors and enhance them */
+html.eyebrowse-filter-protanopia [style*="color: red"],
+html.eyebrowse-filter-protanopia [style*="color:#f00"],
+html.eyebrowse-filter-protanopia [style*="color:#ff0000"],
+html.eyebrowse-filter-protanopia .text-danger {
+  /* Make reds more visible by shifting to more distinguishable colors */
+  color: #9f0000 !important; /* Darker red */
+  font-weight: bold !important; /* Added weight for emphasis */
+}
+
+html.eyebrowse-filter-protanopia [style*="color: green"],
+html.eyebrowse-filter-protanopia [style*="color:#0f0"],
+html.eyebrowse-filter-protanopia [style*="color:#00ff00"],
+html.eyebrowse-filter-protanopia .text-success {
+  /* Make greens more visible */
+  color: #006666 !important; /* Blue-green which is more distinct for protanopes */
+  font-weight: bold !important;
+}
+
+/* DEUTERANOPIA - Help users who have trouble seeing greens */
+html.eyebrowse-filter-deuteranopia {
+  /* No filters that simulate or "correct" colorblindness */
+  filter: none !important;
+}
+
+html.eyebrowse-filter-deuteranopia body {
+  /* Slight increase in contrast helps see more details */
+  filter: contrast(110%) !important;
+}
+
+/* Specifically target problematic colors and enhance them */
+html.eyebrowse-filter-deuteranopia [style*="color: green"],
+html.eyebrowse-filter-deuteranopia [style*="color:#0f0"],
+html.eyebrowse-filter-deuteranopia [style*="color:#00ff00"],
+html.eyebrowse-filter-deuteranopia .text-success {
+  /* Make greens more visible by shifting to teal/blue which is easier to distinguish */
+  color: #006699 !important; /* Blue-ish teal */
+  font-weight: bold !important;
+}
+
+html.eyebrowse-filter-deuteranopia [style*="color: red"],
+html.eyebrowse-filter-deuteranopia [style*="color:#f00"],
+html.eyebrowse-filter-deuteranopia [style*="color:#ff0000"],
+html.eyebrowse-filter-deuteranopia .text-danger {
+  /* Make reds more visible */
+  color: #990000 !important; /* Darker red for better visibility */
+  font-weight: bold !important;
+}
+
+/* TRITANOPIA - Help users who have trouble with blues and yellows */
+html.eyebrowse-filter-tritanopia {
+  /* No filters that simulate or "correct" colorblindness */
+  filter: none !important;
+}
+
+html.eyebrowse-filter-tritanopia body {
+  /* Slight increase in contrast helps see more details */
+  filter: contrast(110%) !important;
+}
+
+/* Specifically target problematic colors and enhance them */
+html.eyebrowse-filter-tritanopia [style*="color: blue"],
+html.eyebrowse-filter-tritanopia [style*="color:#00f"],
+html.eyebrowse-filter-tritanopia [style*="color:#0000ff"],
+html.eyebrowse-filter-tritanopia .text-info {
+  /* Make blues more visible */
+  color: #330099 !important; /* Darker, more purple blue */
+  font-weight: bold !important;
+}
+
+html.eyebrowse-filter-tritanopia [style*="color: yellow"],
+html.eyebrowse-filter-tritanopia [style*="color:#ff0"],
+html.eyebrowse-filter-tritanopia [style*="color:#ffff00"],
+html.eyebrowse-filter-tritanopia .text-warning {
+  /* Make yellows more visible */
+  color: #cc6600 !important; /* Orange instead of yellow */
+  font-weight: bold !important;
+}
+
+/* GRAYSCALE - Helping with monochromatic vision or for reducing visual complexity */
+html.eyebrowse-filter-grayscale {
+  filter: grayscale(100%) contrast(120%) !important;
+}
+
+/* DARK MODE - Reduce eye strain and increase contrast */
+html.eyebrowse-filter-dark {
+  filter: invert(90%) hue-rotate(180deg) brightness(0.95) !important;
+}
+
+/* Don't invert images in dark mode */
+html.eyebrowse-filter-dark img,
+html.eyebrowse-filter-dark picture,
+html.eyebrowse-filter-dark video,
+html.eyebrowse-filter-dark canvas,
+html.eyebrowse-filter-dark svg {
+  filter: invert(100%) hue-rotate(180deg) !important;
+}
+
+/* General enhancement - add additional visual cues for colorblind users */
+
+/* Add underline to links for better visibility - helps all colorblind types */
+html[class*="eyebrowse-filter"] a:link,
+html[class*="eyebrowse-filter"] a:visited {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+}
+
+/* Add patterns to buttons based on their semantic meaning */
+html[class*="eyebrowse-filter"] .btn-danger,
+html[class*="eyebrowse-filter"] .btn-error,
+html[class*="eyebrowse-filter"] button[class*="danger"],
+html[class*="eyebrowse-filter"] button[class*="error"] {
+  border: 2px solid black !important;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1) !important;
+}
+
+html[class*="eyebrowse-filter"] .btn-success,
+html[class*="eyebrowse-filter"] button[class*="success"] {
+  border: 2px solid black !important;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Font application */
+html.eyebrowse-font-opendyslexic * {
+  font-family: "OpenDyslexic", Arial, sans-serif !important;
+}
+
+html.eyebrowse-font-arial * {
+  font-family: Arial, sans-serif !important;
+}
+
+html.eyebrowse-font-verdana * {
+  font-family: Verdana, Geneva, sans-serif !important;
+}
+
+html.eyebrowse-font-tahoma * {
+  font-family: Tahoma, Geneva, sans-serif !important;
+}
+
+html.eyebrowse-font-comic-sans * {
+  font-family: "Comic Sans MS", cursive, sans-serif !important;
+}
+
+/* Text size */
+:root {
+  --text-size-factor: 1;
+  --line-spacing-factor: 1;
+  --letter-spacing-value: 0px;
+  --word-spacing-value: 0px;
+}
+
+/* Apply text size */
+html {
+  font-size: calc(100% * var(--text-size-factor)) !important;
+}
+
+/* Apply line spacing */
+body * {
+  line-height: calc(1.4 * var(--line-spacing-factor)) !important;
+}
+
+/* Apply letter spacing */
+body * {
+  letter-spacing: var(--letter-spacing-value) !important;
+}
+
+/* Apply word spacing */
+body * {
+  word-spacing: var(--word-spacing-value) !important;
+}
+
+/* Text guide */
+html.eyebrowse-text-guide p,
+html.eyebrowse-text-guide li,
+html.eyebrowse-text-guide label {
+  border-left: 3px solid rgba(0, 0, 0, 0.2) !important;
+  padding-left: 10px !important;
+}
+
+/* Setup wizard slider container specific styles */
+#setup-wizard .slider-container {
+  position: relative;
+  z-index: 1;
+  margin: 15px 0;
+}
+
+#setup-wizard input[type="range"] {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.slider-wrapper {
+  position: relative;
+  padding: 5px 0;
+}
+
+#setup-wizard h3,
+#setup-wizard p,
+#setup-wizard .checkbox-label {
+  pointer-events: auto;
+  position: relative;
+  z-index: 3;
+}
+
+#setup-wizard input[type="checkbox"] {
+  pointer-events: auto;
+}
+
+#setup-wizard .slider-container {
+  user-select: none;
+}

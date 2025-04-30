@@ -1,54 +1,122 @@
 /* 
- * Improved tritanopia (blue-blind) filter
- * Uses proper filters for images and content
+ * Assistive CSS for Tritanopia (Blue-Yellow Deficient Color Vision)
+ * These styles help users with tritanopia by enhancing color contrast
+ * and providing additional non-color visual cues
  */
 
-/* Basic page content filter */
+/* Enhance overall contrast */
 html {
-  filter: brightness(1.05) saturate(1.0) !important;
+  filter: contrast(110%) !important;
 }
 
-/* Special image filter that properly simulates tritanopia */
-img, video, canvas, svg, [style*="background-image"] {
-  /* This filter matrix was designed to simulate tritanopia accurately */
-  filter: url('data:image/svg+xml,\
-    <svg xmlns="http://www.w3.org/2000/svg">\
-      <filter id="tritanopia">\
-        <feColorMatrix type="matrix" values="\
-          0.95, 0.05,  0,     0, 0 \
-          0,    0.433, 0.567, 0, 0 \
-          0,    0.475, 0.525, 0, 0 \
-          0,    0,     0,     1, 0"/>\
-      </filter>\
-    </svg>#tritanopia') !important;
+/* Make blue elements more distinguishable */
+[style*="color: blue"], .text-info, .info,
+[style*="color:#00f"], [style*="color:#0000ff"],
+[style*="color: #00f"], [style*="color: #0000ff"] {
+  /* Use darker and more purple-leaning blue */
+  color: #1F00D1 !important;
+  font-weight: bold !important;
+  /* Add underline for additional cue */
+  text-decoration: underline solid !important;
+  text-underline-offset: 2px !important;
 }
 
-/* Fallback filter for browsers that don't support SVG filters */
-@supports not (filter: url('#tritanopia')) {
-  img, video, canvas, svg, [style*="background-image"] {
-    filter: grayscale(40%) sepia(30%) hue-rotate(170deg) saturate(150%) !important;
-  }
+/* Add textures to blue backgrounds */
+[style*="background-color: blue"], .bg-info, 
+[style*="background-color:#00f"], [style*="background-color:#0000ff"],
+[style*="background: blue"], [style*="background:#00f"] {
+  background-color: #1F00D1 !important;
+  /* Add horizontal stripe pattern for additional visual cue */
+  background-image: linear-gradient(0deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1) 75%, transparent 75%, transparent) !important;
+  background-size: 10px 10px !important;
+  border: 2px solid black !important;
 }
 
-/* Add visual indicators for important blue/yellow elements */
-[style*="color: blue"], [style*="color:#00f"], [style*="color:#0000ff"],
-[style*="color: #00f"], [style*="color: #0000ff"],
-[style*="color: yellow"], [style*="color:#ff0"], [style*="color:#ffff00"],
+/* Make yellow elements more distinguishable */
+[style*="color: yellow"], .text-warning, .warning,
+[style*="color:#ff0"], [style*="color:#ffff00"],
 [style*="color: #ff0"], [style*="color: #ffff00"] {
-  border-bottom: 1px dotted #000 !important;
+  /* Use orange instead of yellow - more visible to tritanopes */
+  color: #FF6600 !important;
+  font-weight: bold !important;
+  /* Add dotted underline for additional cue */
+  text-decoration: underline dotted !important;
+  text-underline-offset: 2px !important;
+}
+
+/* Add textures to yellow backgrounds */
+[style*="background-color: yellow"], .bg-warning, 
+[style*="background-color:#ff0"], [style*="background-color:#ffff00"],
+[style*="background: yellow"], [style*="background:#ff0"] {
+  background-color: #FF6600 !important;  /* Orange instead of yellow */
+  /* Add diagonal pattern for additional visual cue */
+  background-image: linear-gradient(135deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1) 75%, transparent 75%, transparent) !important;
+  background-size: 10px 10px !important;
+  border: 2px solid black !important;
+}
+
+/* Add icons to improve identification */
+.info::before, .alert-info::before {
+  content: "ℹ " !important;
   font-weight: bold !important;
 }
 
-/* Add patterns to differentiate blue links and elements */
-a:link, a:visited, [role="link"] {
+.warning::before, .alert-warning::before {
+  content: "⚠ " !important;
+  font-weight: bold !important;
+}
+
+/* Improve form controls with blue/yellow indicators */
+[type="checkbox"]:checked,
+[type="radio"]:checked {
+  box-shadow: 0 0 0 2px #1F00D1 !important; /* Purple-blue */
+  border: 1px solid black !important;
+}
+
+.form-control:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #1F00D1 !important;
+  box-shadow: 0 0 0 2px #1F00D1 !important;
+}
+
+/* Improve links */
+a:link {
+  color: #1F00D1 !important; /* Purple-blue */
   text-decoration: underline !important;
-  text-decoration-style: double !important;
-  font-weight: bold !important;
+  text-decoration-thickness: 2px !important;
 }
 
-/* Add special indicator for blue UI elements */
-.btn-primary, .btn-info, [class*="primary"], [class*="info"] {
-  position: relative !important;
-  background-image: linear-gradient(135deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent) !important;
-  background-size: 20px 20px !important;
+a:visited {
+  color: #6600CC !important; /* Purple */
+  text-decoration: underline !important;
+}
+
+/* Enhance focus indicators */
+*:focus {
+  outline: 3px solid #1F00D1 !important; /* Purple-blue */
+  outline-offset: 2px !important;
+}
+
+/* Enhance charts and data visualizations */
+[class*="chart"] path, [class*="chart"] rect,
+[class*="graph"] path, [class*="graph"] rect,
+svg path, svg rect {
+  stroke-width: 2px !important; /* Make lines thicker */
+}
+
+/* Add patterns to chart elements */
+[fill="blue"], [fill="#0000FF"], [fill="#00F"],
+[class*="info"], [class*="primary"] {
+  stroke: black !important;
+  stroke-width: 1px !important;
+  stroke-dasharray: 5,2 !important; /* Dashed lines */
+}
+
+[fill="yellow"], [fill="#FFFF00"], [fill="#FF0"],
+[class*="warning"], [class*="caution"] {
+  stroke: black !important;
+  stroke-width: 1px !important;
+  stroke-dasharray: 1,2 !important; /* Dotted lines */
 }

@@ -1,51 +1,124 @@
 /* 
- * Improved deuteranopia (green-blind) filter
- * Uses proper filters for images and content
+ * Assistive CSS for Deuteranopia (Green Deficient Color Vision)
+ * These styles help users with deuteranopia by enhancing color contrast
+ * and providing additional non-color visual cues
  */
 
-/* Basic page content filter */
+/* Enhance overall contrast */
 html {
-  filter: brightness(1.05) saturate(1.1) !important;
+  filter: contrast(110%) !important;
 }
 
-/* Special image filter that properly simulates deuteranopia */
-img, video, canvas, svg, [style*="background-image"] {
-  /* This filter matrix was designed to simulate deuteranopia accurately */
-  filter: url('data:image/svg+xml,\
-    <svg xmlns="http://www.w3.org/2000/svg">\
-      <filter id="deuteranopia">\
-        <feColorMatrix type="matrix" values="\
-          0.625, 0.375, 0,     0, 0 \
-          0.7,   0.3,   0,     0, 0 \
-          0,     0.3,   0.7,   0, 0 \
-          0,     0,     0,     1, 0"/>\
-      </filter>\
-    </svg>#deuteranopia') !important;
+/* Make red elements more distinguishable */
+[style*="color: red"], .text-danger, .text-error, .danger, .error,
+[style*="color:#f00"], [style*="color:#ff0000"],
+[style*="color: #f00"], [style*="color: #ff0000"] {
+  /* Use a darker red that's more visible to deuteranopes */
+  color: #c80000 !important;
+  font-weight: bold !important;
+  /* Add underline for additional cue */
+  text-decoration: underline wavy !important;
+  text-underline-offset: 2px !important;
 }
 
-/* Fallback filter for browsers that don't support SVG filters */
-@supports not (filter: url('#deuteranopia')) {
-  img, video, canvas, svg, [style*="background-image"] {
-    filter: grayscale(30%) sepia(20%) hue-rotate(20deg) saturate(170%) !important;
-  }
+/* Add textures to red backgrounds */
+[style*="background-color: red"], .bg-danger, 
+[style*="background-color:#f00"], [style*="background-color:#ff0000"],
+[style*="background: red"], [style*="background:#f00"] {
+  background-color: #c80000 !important;
+  /* Add diagonal pattern for additional visual cue */
+  background-image: linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1) 75%, transparent 75%, transparent) !important;
+  background-size: 10px 10px !important;
+  border: 2px solid black !important;
 }
 
-/* Add visual indicators for important green elements */
-[style*="color: green"], [style*="color:#0f0"], [style*="color:#00ff00"],
+/* Make green elements more distinguishable */
+[style*="color: green"], .text-success, .success,
+[style*="color:#0f0"], [style*="color:#00ff00"], 
 [style*="color: #0f0"], [style*="color: #00ff00"] {
-  border-bottom: 1px dotted #000 !important;
+  /* Use teal instead of green - more visible to deuteranopes */
+  color: #007F80 !important;
+  font-weight: bold !important;
+  /* Add dotted underline for additional cue */
+  text-decoration: underline dotted !important;
+  text-underline-offset: 2px !important;
+}
+
+/* Add textures to green backgrounds */
+[style*="background-color: green"], .bg-success,
+[style*="background-color:#0f0"], [style*="background-color:#00ff00"],
+[style*="background: green"], [style*="background:#0f0"] {
+  background-color: #007F80 !important;
+  /* Add checkered pattern for additional visual cue */
+  background-image: linear-gradient(135deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1) 75%, transparent 75%, transparent) !important;
+  background-size: 10px 10px !important;
+  border: 2px solid black !important;
+}
+
+/* Add icons to improve identification */
+.error::before, .danger::before, 
+.alert-danger::before, .alert-error::before {
+  content: "✗ " !important;
   font-weight: bold !important;
 }
 
-/* Add patterns to differentiable green elements like success indicators */
-.success, .alert-success, [class*="success"] {
-  position: relative !important;
-  background-image: linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent) !important;
-  background-size: 20px 20px !important;
+.success::before, .alert-success::before {
+  content: "✓ " !important;
+  font-weight: bold !important;
 }
 
-.success::before, .alert-success::before, [class*="success"]::before {
-  content: "✓" !important;
-  margin-right: 5px !important;
+/* Improve form validation indicators */
+input:valid, .is-valid {
+  border: 2px solid #007F80 !important; /* Teal instead of green */
+  box-shadow: 0 0 0 1px #007F80 !important;
+}
+
+input:invalid, .is-invalid {
+  border: 2px solid #c80000 !important; /* Dark red */
+  box-shadow: 0 0 0 1px #c80000 !important;
+}
+
+/* Improve links */
+a:link {
+  color: #0066CC !important; /* Darker blue */
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+}
+
+a:visited {
+  color: #6600CC !important; /* Purple */
+  text-decoration: underline !important;
+}
+
+/* Enhance charts and data visualizations */
+[class*="chart"] path, [class*="chart"] rect,
+[class*="graph"] path, [class*="graph"] rect,
+svg path, svg rect {
+  stroke-width: 2px !important; /* Make lines thicker */
+}
+
+/* Add patterns to chart elements */
+[fill="green"], [fill="#00FF00"], [fill="#0F0"], 
+[class*="success"], [class*="positive"] {
+  fill: url(#pattern-squares) !important;
+  stroke: black !important;
+  stroke-width: 1px !important;
+}
+
+[fill="red"], [fill="#FF0000"], [fill="#F00"],
+[class*="error"], [class*="negative"] {
+  fill: url(#pattern-lines) !important;
+  stroke: black !important;
+  stroke-width: 1px !important;
+}
+
+/* Add SVG patterns for charts */
+body::before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><defs><pattern id="pattern-squares" patternUnits="userSpaceOnUse" width="10" height="10"><rect width="5" height="5" fill="#007F80" /><rect x="5" y="5" width="5" height="5" fill="#007F80" /></pattern><pattern id="pattern-lines" patternUnits="userSpaceOnUse" width="10" height="10"><rect width="10" height="10" fill="#c80000" /><path d="M-1,1 l2,-2 M0,10 l10,-10 M9,11 l2,-2" stroke="black" stroke-width="1" /></pattern></defs></svg>');
 }
   

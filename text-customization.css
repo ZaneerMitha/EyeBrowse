@@ -1,4 +1,4 @@
-/* Text customization CSS for EyeBrowse - Fixed text size scaling */
+/* Text customization CSS for EyeBrowse - Fixed high contrast mode */
 
 /* 
  * Custom CSS variable approach for text scaling
@@ -53,15 +53,83 @@ html.eyebrowse-text-guide li {
   padding-left: 10px !important;
 }
 
-/* High contrast text */
-html.eyebrowse-high-contrast-text * {
+/* High contrast text - FIXED VERSION */
+/* Apply high contrast selectively to text elements only */
+html.eyebrowse-high-contrast-text p,
+html.eyebrowse-high-contrast-text h1,
+html.eyebrowse-high-contrast-text h2,
+html.eyebrowse-high-contrast-text h3,
+html.eyebrowse-high-contrast-text h4,
+html.eyebrowse-high-contrast-text h5,
+html.eyebrowse-high-contrast-text h6,
+html.eyebrowse-high-contrast-text li,
+html.eyebrowse-high-contrast-text span:not(:has(img)),
+html.eyebrowse-high-contrast-text div:not(:has(img, video, canvas, svg)),
+html.eyebrowse-high-contrast-text a,
+html.eyebrowse-high-contrast-text button,
+html.eyebrowse-high-contrast-text label,
+html.eyebrowse-high-contrast-text input,
+html.eyebrowse-high-contrast-text textarea,
+html.eyebrowse-high-contrast-text select,
+html.eyebrowse-high-contrast-text option,
+html.eyebrowse-high-contrast-text td,
+html.eyebrowse-high-contrast-text th,
+html.eyebrowse-high-contrast-text code,
+html.eyebrowse-high-contrast-text pre {
   color: #000 !important;
   background-color: #fff !important;
 }
 
-html.eyebrowse-high-contrast-text-inverted * {
+/* Inverted high contrast - FIXED VERSION */
+html.eyebrowse-high-contrast-text-inverted p,
+html.eyebrowse-high-contrast-text-inverted h1,
+html.eyebrowse-high-contrast-text-inverted h2,
+html.eyebrowse-high-contrast-text-inverted h3,
+html.eyebrowse-high-contrast-text-inverted h4,
+html.eyebrowse-high-contrast-text-inverted h5,
+html.eyebrowse-high-contrast-text-inverted h6,
+html.eyebrowse-high-contrast-text-inverted li,
+html.eyebrowse-high-contrast-text-inverted span:not(:has(img)),
+html.eyebrowse-high-contrast-text-inverted div:not(:has(img, video, canvas, svg)),
+html.eyebrowse-high-contrast-text-inverted a,
+html.eyebrowse-high-contrast-text-inverted button,
+html.eyebrowse-high-contrast-text-inverted label,
+html.eyebrowse-high-contrast-text-inverted input,
+html.eyebrowse-high-contrast-text-inverted textarea,
+html.eyebrowse-high-contrast-text-inverted select,
+html.eyebrowse-high-contrast-text-inverted option,
+html.eyebrowse-high-contrast-text-inverted td,
+html.eyebrowse-high-contrast-text-inverted th,
+html.eyebrowse-high-contrast-text-inverted code,
+html.eyebrowse-high-contrast-text-inverted pre {
   color: #fff !important;
   background-color: #000 !important;
+}
+
+/* Explicitly PRESERVE media elements */
+html.eyebrowse-high-contrast-text img,
+html.eyebrowse-high-contrast-text video,
+html.eyebrowse-high-contrast-text canvas,
+html.eyebrowse-high-contrast-text svg,
+html.eyebrowse-high-contrast-text-inverted img,
+html.eyebrowse-high-contrast-text-inverted video,
+html.eyebrowse-high-contrast-text-inverted canvas,
+html.eyebrowse-high-contrast-text-inverted svg {
+  /* Reset any color/background properties to ensure media is visible */
+  background-color: initial !important;
+  color: initial !important;
+  filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+}
+
+/* Ensure containers with media aren't affected in a way that hides media */
+html.eyebrowse-high-contrast-text div:has(img, video, canvas, svg),
+html.eyebrowse-high-contrast-text-inverted div:has(img, video, canvas, svg),
+html.eyebrowse-high-contrast-text span:has(img, video, canvas, svg),
+html.eyebrowse-high-contrast-text-inverted span:has(img, video, canvas, svg) {
+  background-color: initial !important;
 }
 
 /* Additional styling for text elements in high contrast mode */
